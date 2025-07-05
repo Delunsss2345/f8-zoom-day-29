@@ -52,7 +52,7 @@ const renderDetail = async (id) => {
 
     const home = document.createElement('a') ; 
     home.classList = "hover:underline"
-    home.href = "/index.html" ; 
+    home.href = "./index.html" ; 
     home.textContent = "HOME "
 
     const categoryText = document.createElement('p') ; 
