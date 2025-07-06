@@ -38,7 +38,7 @@ const renderDetail = async (id) => {
     imageWrapper.className = "flex justify-center items-start";
 
     const img = document.createElement("img");
-    img.src = data.images;
+    img.src = data.images[0];
     img.alt = data.title;
     img.className = "w-80 h-auto object-cover";
 
