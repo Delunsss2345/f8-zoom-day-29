@@ -154,29 +154,25 @@ const renderProducts = async () => {
 
         productList.appendChild(productDiv);
     });
-    setTimeout(() => {
-        loadingFrame.hidden = true , 
-        scroll.style.overflow = 'scroll' 
-    }  , 200)
+    loadingFrame.hidden = true , 
+    scroll.style.overflow = 'scroll' 
 };
 
 
 
-(async () => {
-  if (window.location.pathname.endsWith("detail.html")) {
+
+
+
+if (window.location.pathname === "/detail.html") {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
-
     if (id) {
-    await renderDetail(id); 
+        renderDetail(id); 
     }
-  } else {
-    await renderProducts(); 
-  }
-})();
-
-
-
+}
+else {
+    renderProducts();
+}
 
 
 
