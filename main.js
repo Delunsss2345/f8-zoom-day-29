@@ -31,7 +31,7 @@ const renderDetail = async (id) => {
     container.innerHTML = ""; 
     //Bọc ảnh và info
     const wrapper = document.createElement("div");
-    wrapper.className = "flex flex-col-reverse sm:flex-row gap-8";
+    wrapper.className = "flex flex-col-reverse items-center sm:flex-row gap-8";
 
     //Ảnh
     const imageWrapper = document.createElement("div");
@@ -40,7 +40,7 @@ const renderDetail = async (id) => {
     const img = document.createElement("img");
     img.src = data.images[0];
     img.alt = data.title;
-    img.className = "w-80 h-auto object-cover";
+    img.className = "w-80 sm:w-120 h-auto object-cover";
 
     imageWrapper.appendChild(img);
 
