@@ -163,7 +163,7 @@ const renderProducts = async () => {
 
 
 
-if (window.location.pathname === "/detail.html") {
+if (window.location.pathname.endsWith("detail.html")) {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
     if (id) {
