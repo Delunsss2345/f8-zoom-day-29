@@ -31,7 +31,7 @@ const renderDetail = async (id) => {
     container.innerHTML = ""; 
     //Bọc ảnh và info
     const wrapper = document.createElement("div");
-    wrapper.className = "grid grid-cols-1 md:grid-cols-2 gap-8";
+    wrapper.className = "flex flex-col-reverse sm:flex-row gap-8";
 
     //Ảnh
     const imageWrapper = document.createElement("div");
@@ -64,11 +64,11 @@ const renderDetail = async (id) => {
 
 
     const title = document.createElement("h1");
-    title.className = "text-4xl font-bold mb-2 leading-snug";
+    title.className = "text-xl sm:text-3xl font-bold mb-2 leading-snug";
     title.textContent = data.title;
 
     const brand = document.createElement("p");
-    brand.className = "text-lg italic text-gray-600 mb-4";
+    brand.className = "text-sm sm:text-lg italic text-gray-600 mb-4";
 
     const brandSpan = document.createElement("span");
     brandSpan.className = "ml-2 text-black font-semibold";
@@ -112,7 +112,7 @@ const renderDetail = async (id) => {
     ratingBox.appendChild(ratingText);
 
     const desc = document.createElement("p");
-    desc.className = "text-base text-gray-700 leading-relaxed";
+    desc.className = "text-base text-gray-700 leading-normal sm:leading-relaxed";
     desc.textContent = data.description;
 
     info.appendChild(category);
@@ -148,7 +148,7 @@ const renderProducts = async () => {
 
         productDiv.innerHTML = `
             <img src="${product.thumbnail}" alt="${product.title}" class="w-full h-auto object-cover rounded mb-2" />
-            <h2 class="text-lg font-semibold h-12">${product.title}</h2>
+            <h2 class="text-sm lg:text-lg line-clamp-1 lg:line-clamp-2 lg:h-13 font-semibold ">${product.title}</h2>
             <p class="text-white-600 mt-2">$${product.price.toFixed(2)}</p>
         `;
 
