@@ -24,97 +24,93 @@ const sendProductDetail = async (e) => {
 }
 
 const renderDetail = async (id) => {
-    loadingFrame.hidden = false; 
+    loadingFrame.hidden = false;
     const data = await sendHttpRequest("GET", `${baseUrl}/products/${id}`);
     const container = document.getElementById("product-detail");
 
-    container.innerHTML = ""; 
-    //Bọc ảnh và info
+    container.innerHTML = "";
     const wrapper = document.createElement("div");
     wrapper.className = "flex flex-col-reverse items-center sm:flex-row gap-8";
 
-    //Ảnh
+    // Image
     const imageWrapper = document.createElement("div");
     imageWrapper.className = "flex justify-center items-start";
-
     const img = document.createElement("img");
     img.src = data.images[0];
     img.alt = data.title;
     img.className = "w-80 sm:w-120 h-auto object-cover";
-
     imageWrapper.appendChild(img);
 
-    //Info
+    // Info
     const info = document.createElement("div");
 
+    // Category
     const category = document.createElement("div");
     category.className = "flex gap-1 text-sm text-gray-500 mb-2";
+    const home = document.createElement("a");
+    home.className = "hover:underline";
+    home.href = "./index.html";
+    home.textContent = "HOME ";
+    const categoryText = document.createElement("p");
+    categoryText.textContent = `/ ${data.category.toUpperCase()}`;
+    category.appendChild(home);
+    category.appendChild(categoryText);
 
-    const home = document.createElement('a') ; 
-    home.classList = "hover:underline"
-    home.href = "./index.html" ; 
-    home.textContent = "HOME "
-
-    const categoryText = document.createElement('p') ; 
-    categoryText.textContent = `/ ${data.category.toUpperCase()}`
-
-    category.appendChild(home) ; 
-    category.appendChild(categoryText) ; 
-  
-
-
+    // Title
     const title = document.createElement("h1");
     title.className = "text-xl sm:text-3xl font-bold mb-2 leading-snug";
     title.textContent = data.title;
 
+    // Brand
     const brand = document.createElement("p");
     brand.className = "text-sm sm:text-lg italic text-gray-600 mb-4";
-
     const brandSpan = document.createElement("span");
     brandSpan.className = "ml-2 text-black font-semibold";
     brandSpan.textContent = data.brand;
-
     brand.textContent = "BRAND ";
     brand.appendChild(brandSpan);
 
-    //price
+    // Price
+    const discountedPrice = data.price * (1 - data.discountPercentage / 100);
     const price = document.createElement("p");
     price.className = "text-2xl font-semibold mb-4";
-    price.textContent = `$${data.price.toFixed(2)}`;
 
+    price.innerHTML = `
+        <span class="line-through text-gray-400 mr-2">$${data.price.toFixed(2)}</span>
+        <span class="text-green-600">$${discountedPrice.toFixed(2)}</span>
+        <span class="text-sm text-red-500 ml-2">-${data.discountPercentage.toFixed(1)}%</span>
+    `;
 
-    //Lớp bọc rating
+    // Rating
     const ratingBox = document.createElement("div");
     ratingBox.className = "flex items-center mb-6";
 
-    //Start
-    const stars = document.createElement("div");
-    stars.className = "flex text-yellow-500 mr-2";
+    const starBackground = document.createElement("div");
+    starBackground.className = "relative flex text-gray-400 text-lg";
+    starBackground.innerHTML = "★★★★★";
 
-    const starCount = Math.floor(data.rating);
+    const starOverlay = document.createElement("div");
+    starOverlay.className = "absolute top-0 left-0 overflow-hidden text-yellow-500 text-lg";
+    const overlayWidth = (data.rating / 5) * 100;
+    starOverlay.style.width = `${overlayWidth}%`;
+    starOverlay.innerHTML = "★★★★★";
 
-    const fullStars = document.createElement('span') //tạo sao trên data
-    fullStars.textContent = "★".repeat(data.rating)
-
-    const emptySpan = document.createElement("span");
-
-    emptySpan.className = "text-gray-400";
-    emptySpan.textContent = "★".repeat(5 - starCount); //lấy sao trừ 
-
-    stars.appendChild(fullStars);
-    stars.appendChild(emptySpan);
+    starBackground.appendChild(starOverlay);
 
     const ratingText = document.createElement("p");
-    ratingText.className = "text-sm text-gray-700";
-    ratingText.textContent = `${data.rating.toFixed(2) || 0} RATING`;
+    ratingText.className = "ml-2 text-sm text-gray-700";
+    ratingText.textContent = `${data.rating.toFixed(2)} RATING`;
 
-    ratingBox.appendChild(stars);
+    ratingBox.appendChild(starBackground);
     ratingBox.appendChild(ratingText);
 
+
+    // Description
     const desc = document.createElement("p");
     desc.className = "text-base text-gray-700 leading-normal sm:leading-relaxed";
     desc.textContent = data.description;
 
+    // Append all to info
     info.appendChild(category);
     info.appendChild(title);
     info.appendChild(brand);
@@ -126,7 +122,7 @@ const renderDetail = async (id) => {
     wrapper.appendChild(info);
     container.appendChild(wrapper);
 
-    setTimeout(() => loadingFrame.hidden = true, 200)
+    setTimeout(() => loadingFrame.hidden = true, 200);
 };
 
 const renderProducts = async () => {
