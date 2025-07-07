@@ -100,7 +100,6 @@ const renderDetail = async (id) => {
     ratingText.textContent = `${data.rating} Stars` ; 
     ratingText.className = "text-sm font-semibold" ; 
 
-
     ratingBox.appendChild(starBackground);
     ratingBox.appendChild(ratingText);
 
@@ -153,7 +152,7 @@ const renderProducts = async () => {
                 <span class="text-green-400 font-semibold">$${discountedPrice.toFixed(2)}</span>
                 <span class="text-red-400 text-sm ml-2">-${product.discountPercentage.toFixed(1)}%</span>
             </p>
-            <p class="text-sm text-gray-300 mt-1">⭐ ${product.rating} | Còn lại: ${product.stock}</p>
+            <p class="text-sm text-gray-500 mt-1">⭐ ${product.rating} | Còn lại: ${product.stock}</p>
         `;
 
         productList.appendChild(productDiv);
