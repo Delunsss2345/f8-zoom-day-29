@@ -89,7 +89,7 @@ const renderDetail = async (id) => {
     starBackground.className = "relative text-gray-400"
     starBackground.textContent = "★★★★★"
 
-    const widthRating = (data.rating / 5) * 100 ; 
+    const widthRating = ((data.rating / 5) * 100).toFixed(1) ; 
     const ratingStart = document.createElement('div') ; 
     ratingStart.className = "absolute inset-0 overflow-hidden text-yellow-400"
     ratingStart.textContent = "★★★★★"
@@ -149,7 +149,7 @@ const renderProducts = async () => {
             <h2 class="text-sm lg:text-lg line-clamp-1 lg:line-clamp-2 lg:h-13 font-semibold">${product.title}</h2>
             <p class="text-white mt-1">
                 <span class="line-through text-gray-400 mr-1">$${product.price.toFixed(2)}</span>
-                <span class="text-green-400 font-semibold">$${discountedPrice.toFixed(2)}</span>
+                <span class="text-green-400 font-semibold">$${discountedPrice.toFixed(3)}</span>
                 <span class="text-red-400 text-sm ml-2">-${product.discountPercentage.toFixed(1)}%</span>
             </p>
             <p class="text-sm text-gray-500 mt-1">⭐ ${product.rating} | Còn lại: ${product.stock}</p>
