@@ -133,31 +133,38 @@ const renderProducts = async () => {
     const data = await sendHttpRequest('GET', `${baseUrl}/products`);
 
     const productList = document.getElementById('products');
-    const scroll = document.getElementById('scroll') ;
-    console.log(scroll) ; 
+    const scroll = document.getElementById('scroll');
+    console.log(scroll);
     scroll.style.overflow = 'hidden';
 
+    loadingFrame.hidden = false;
+    productList.innerHTML = "";
 
-    loadingFrame.hidden = false; 
-    productList.innerHTML = "" ; 
     data.products.forEach(product => {
+        const discountedPrice = product.price * (1 - product.discountPercentage / 100);
+
         const productDiv = document.createElement("div");
         productDiv.setAttribute("data-product-id", product.id);
-        productDiv.onclick = sendProductDetail
-        productDiv.className = "p-4 rounded border border-white mb-4 w-full max-w-sm cursor-pointer hover:-translate-y-2 transition-transform duration-300"; 
+        productDiv.onclick = sendProductDetail;
+        productDiv.className = "p-4 rounded border border-white mb-4 w-full max-w-sm cursor-pointer hover:-translate-y-2 transition-transform duration-300";
 
         productDiv.innerHTML = `
-            <img src="${product.thumbnail}" alt="${product.title}" class="w-full h-auto object-cover rounded mb-2" />
-            <h2 class="text-sm lg:text-lg line-clamp-1 lg:line-clamp-2 lg:h-13 font-semibold ">${product.title}</h2>
-            <p class="text-white-600 mt-2">$${product.price.toFixed(2)}</p>
+            <img src="${product.thumbnail}" alt="${product.title}" class="w-full h-48 object-cover rounded mb-2" />
+            <h2 class="text-sm lg:text-lg line-clamp-1 lg:line-clamp-2 lg:h-13 font-semibold">${product.title}</h2>
+            <p class="text-white mt-1">
+                <span class="line-through text-gray-400 mr-1">$${product.price.toFixed(2)}</span>
+                <span class="text-green-400 font-semibold">$${discountedPrice.toFixed(2)}</span>
+                <span class="text-red-400 text-sm ml-2">-${product.discountPercentage.toFixed(1)}%</span>
+            </p>
+            <p class="text-sm text-gray-300 mt-1">⭐ ${product.rating} | Còn lại: ${product.stock}</p>
         `;
 
         productList.appendChild(productDiv);
     });
-    loadingFrame.hidden = true , 
-    scroll.style.overflow = 'scroll' 
-};
 
+    loadingFrame.hidden = true;
+    scroll.style.overflow = 'scroll';
+};
 
 
 
