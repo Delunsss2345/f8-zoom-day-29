@@ -139,7 +139,7 @@ const renderProducts = async () => {
         productDiv.className = "p-4 rounded border border-white mb-4 w-full max-w-sm cursor-pointer hover:-translate-y-2 transition-transform duration-300";
 
         productDiv.innerHTML = `
-            <img src="${product.thumbnail}" alt="${product.title}" class="w-full h-48 object-cover rounded mb-2" />
+            <img src="${product.thumbnail}" alt="${product.title}" class="w-full object-cover rounded mb-2" />
             <h2 class="text-sm lg:text-lg line-clamp-1 lg:line-clamp-2 lg:h-13 font-semibold">${product.title}</h2>
             <p class="text-white mt-1">
                 <span class="line-through text-gray-400 mr-1">$${product.price.toFixed(2)}</span>
