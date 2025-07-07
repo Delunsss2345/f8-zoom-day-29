@@ -77,7 +77,7 @@ const renderDetail = async (id) => {
 
     price.innerHTML = `
         <span class="line-through text-gray-400 mr-2">$${data.price.toFixed(2)}</span>
-        <span class="text-green-600">$${discountedPrice.toFixed(2)}</span>
+        <span class="text-green-600">$${discountedPrice.toFixed(3)}</span>
         <span class="text-sm text-red-500 ml-2 italic">-${data.discountPercentage.toFixed(1)}%</span>
     `;
 
