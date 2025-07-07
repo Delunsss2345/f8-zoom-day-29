@@ -73,41 +73,35 @@ const renderDetail = async (id) => {
     // Price
     const discountedPrice = data.price * (1 - data.discountPercentage / 100);
     const price = document.createElement("p");
-    price.className = "text-2xl font-semibold mb-4";
+    price.className = "text-xl font-semibold mb-4";
 
     price.innerHTML = `
         <span class="line-through text-gray-400 mr-2">$${data.price.toFixed(2)}</span>
         <span class="text-green-600">$${discountedPrice.toFixed(2)}</span>
-        <span class="text-sm text-red-500 ml-2">-${data.discountPercentage.toFixed(1)}%</span>
+        <span class="text-sm text-red-500 ml-2 italic">-${data.discountPercentage.toFixed(1)}%</span>
     `;
 
     // Rating
     const ratingBox = document.createElement("div");
     ratingBox.className = "flex items-center mb-6";
 
-    const starBackground = document.createElement("div");
-    starBackground.className = "relative flex text-gray-400 text-lg";
-    starBackground.innerHTML = "★★★★★";
+    const starBackground = document.createElement('div') ; 
+    starBackground.className = "relative text-gray-400"
+    starBackground.textContent = "★★★★★"
 
-    const starOverlay = document.createElement("div");
-    starOverlay.className = "absolute top-0 left-0 overflow-hidden text-yellow-500 text-lg";
-    const overlayWidth = (data.rating / 5) * 100;
-    starOverlay.style.width = `${overlayWidth}%`;
-    starOverlay.innerHTML = "★★★★★";
-
-    starBackground.appendChild(starOverlay);
-
-    const ratingText = document.createElement("p");
-    ratingText.className = "ml-2 text-sm text-gray-700";
-    ratingText.textContent = `${data.rating.toFixed(2)} RATING`;
+    const widthRating = (data.rating / 5) * 100 ; 
+    const ratingText = document.createElement('div') ; 
+    ratingText.className = "absolute inset-0 overflow-hidden text-yellow-400"
+    ratingText.textContent = "★★★★★"
+    ratingText.style.width = `${widthRating}%` ; 
+    starBackground.appendChild(ratingText);
 
     ratingBox.appendChild(starBackground);
-    ratingBox.appendChild(ratingText);
 
 
     // Description
     const desc = document.createElement("p");
-    desc.className = "text-base text-gray-700 leading-normal sm:leading-relaxed";
+    desc.className = "text-base text-gray-700 leading-normal sm:leading-relaxed italic";
     desc.textContent = data.description;
 
     // Append all to info
@@ -122,7 +116,7 @@ const renderDetail = async (id) => {
     wrapper.appendChild(info);
     container.appendChild(wrapper);
 
-    setTimeout(() => loadingFrame.hidden = true, 200);
+   loadingFrame.hidden = true ; 
 };
 
 const renderProducts = async () => {
