@@ -83,20 +83,27 @@ const renderDetail = async (id) => {
 
     // Rating
     const ratingBox = document.createElement("div");
-    ratingBox.className = "flex items-center mb-6";
+    ratingBox.className = "flex items-center mb-6 gap-2";
 
     const starBackground = document.createElement('div') ; 
     starBackground.className = "relative text-gray-400"
     starBackground.textContent = "★★★★★"
 
     const widthRating = (data.rating / 5) * 100 ; 
-    const ratingText = document.createElement('div') ; 
-    ratingText.className = "absolute inset-0 overflow-hidden text-yellow-400"
-    ratingText.textContent = "★★★★★"
-    ratingText.style.width = `${widthRating}%` ; 
-    starBackground.appendChild(ratingText);
+    const ratingStart = document.createElement('div') ; 
+    ratingStart.className = "absolute inset-0 overflow-hidden text-yellow-400"
+    ratingStart.textContent = "★★★★★"
+    ratingStart.style.width = `${widthRating}%` ; 
+    starBackground.appendChild(ratingStart);
+
+    const ratingText = document.createElement('p') ; 
+    ratingText.textContent = `${data.rating} Stars` ; 
+    ratingText.className = "text-sm font-semibold" ; 
+
 
     ratingBox.appendChild(starBackground);
+    ratingBox.appendChild(ratingText);
+
 
 
     // Description
